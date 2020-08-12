@@ -12,8 +12,8 @@
           <div class="navigation-links__item">
             <nuxt-link
               exact
-              active-class="navbar-link_active"
-              class="navbar-link"
+              active-class="link_active"
+              class="link link_white"
               to="/"
             >
               Main page
@@ -56,16 +56,6 @@ export default {
     &:last-child {
       margin-right: 0;
     }
-  }
-}
-
-.navbar-link {
-  color: #fff;
-  transition: 0.3s all opacity;
-
-  &:hover,
-  &_active {
-    opacity: 0.8;
   }
 }
 </style>

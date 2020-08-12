@@ -36,6 +36,24 @@ a {
   text-decoration: none;
 }
 
+.link {
+  text-decoration: none;
+  transition: 0.3s opacity;
+
+  &_white {
+    color: #fff !important;
+  }
+
+  &_primary {
+    color: #ff5722 !important;
+  }
+
+  &:hover,
+  &_active {
+    opacity: 0.7;
+  }
+}
+
 .content-container {
   padding-top: 140px;
   padding-bottom: 60px;
