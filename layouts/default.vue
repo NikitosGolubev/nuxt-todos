@@ -1,55 +1,43 @@
 <template>
-  <div>
-    <Nuxt />
-  </div>
+  <v-app>
+    <div class="page">
+      <div class="page__content">
+        <main-navbar />
+        <v-container class="content-container">
+          <Nuxt />
+        </v-container>
+      </div>
+      <div class="page__footer">
+        <main-footer />
+      </div>
+    </div>
+  </v-app>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+import MainNavbar from '@/components/MainNavbar/MainNavbar'
+import MainFooter from '@/components/MainFooter/MainFooter'
+
+export default {
+  components: { MainNavbar, MainFooter },
+}
+</script>
+
+<style lang="scss">
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: space-between;
+  justify-content: space-between;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
+a {
   text-decoration: none;
-  padding: 10px 30px;
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.content-container {
+  padding-top: 140px;
+  padding-bottom: 60px;
 }
 </style>
