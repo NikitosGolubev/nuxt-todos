@@ -23,7 +23,7 @@
         </p>
 
         <div class="text-description__action-call">
-          <nuxt-link to="/">
+          <nuxt-link to="/register">
             <v-btn depressed x-large color="deep-orange" class="white--text">
               Supercharge your life
             </v-btn>
