@@ -57,7 +57,25 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyDmbujcK2g3hYBQCW19mEa1sWvxatMmQ6E',
+          authDomain: 'nuxt-todo-ef948.firebaseapp.com',
+          databaseURL: 'https://nuxt-todo-ef948.firebaseio.com',
+          projectId: 'nuxt-todo-ef948',
+          storageBucket: 'nuxt-todo-ef948.appspot.com',
+          messagingSenderId: '377799819106',
+          appId: '1:377799819106:web:96816a47910186730d763b',
+        },
+        services: {
+          auth: true,
+        },
+      },
+    ],
+  ],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

@@ -33,6 +33,31 @@
               </v-btn>
             </nuxt-link>
           </div>
+
+          <div class="navigation-links__item">
+            <nuxt-link
+              exact
+              active-class="link_active"
+              class="link link_white"
+              to="/todos"
+            >
+              My todos
+            </nuxt-link>
+          </div>
+          <div class="navigation-links__item">
+            <nuxt-link to="/todos/create">
+              <v-btn color="green">
+                Create new
+              </v-btn>
+            </nuxt-link>
+          </div>
+          <div class="navigation-links__item">
+            <nuxt-link to="/logout">
+              <v-btn depressed color="deep-orange">
+                Logout
+              </v-btn>
+            </nuxt-link>
+          </div>
         </div>
       </v-container>
     </v-app-bar>

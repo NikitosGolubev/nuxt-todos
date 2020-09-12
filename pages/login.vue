@@ -2,7 +2,7 @@
   <div>
     <div class="login-form">
       <div class="login-form__title">
-        <h1 class="text--h3">Sign in</h1>
+        <h1 class="text-h3">Sign in</h1>
       </div>
       <login-form />
     </div>

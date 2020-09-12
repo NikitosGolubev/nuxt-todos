@@ -5,7 +5,11 @@
     @submit.native.prevent="formSubmit"
   >
     <div>
-      <v-text-field label="Phone number" required />
+      <v-text-field
+        color="deep-purple darken-1"
+        label="Phone number"
+        required
+      />
     </div>
 
     <div class="login-form__submit">

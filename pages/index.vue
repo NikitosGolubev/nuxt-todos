@@ -42,6 +42,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  middleware: 'auth',
+  created() {
+    // console.log(this.$fireAuth)
+  },
+}
+</script>
+
 <style scoped lang="scss">
 .guest-page {
   &__header {

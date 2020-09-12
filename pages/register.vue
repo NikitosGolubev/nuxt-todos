@@ -2,7 +2,7 @@
   <div>
     <div class="register-form">
       <div class="register-form__title">
-        <h1 class="text--h3">Create new account</h1>
+        <h1 class="text-h3">Create new account</h1>
       </div>
       <register-form />
     </div>
