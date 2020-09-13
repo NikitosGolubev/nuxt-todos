@@ -45,9 +45,6 @@
 <script>
 export default {
   middleware: 'auth',
-  created() {
-    // console.log(this.$fireAuth)
-  },
 }
 </script>
 
