@@ -5,20 +5,15 @@
     @submit.native.prevent="formSubmit"
   >
     <div>
-      <v-text-field color="deep-purple darken-1" label="Full name" required />
+      <v-text-field v-model="user.email" color="deep-purple darken-1" label="E-mail" />
     </div>
+
     <div>
-      <v-text-field color="deep-purple darken-1" label="Username" required />
+      <v-text-field v-model="user.password" type="password" color="deep-purple darken-1" label="Password" />
     </div>
+
     <div>
-      <v-text-field color="deep-purple darken-1" label="E-mail" required />
-    </div>
-    <div>
-      <v-text-field
-        color="deep-purple darken-1"
-        label="Phone Number"
-        required
-      />
+      <v-text-field v-model="user.repeatPassword" type="password" color="deep-purple darken-1" label="Repeat password" />
     </div>
 
     <div class="register-form__submit">
@@ -41,9 +36,16 @@
 <script>
 export default {
   name: 'RegisterForm',
+  data: () => ({
+    user: {
+      email: '',
+      password: '',
+      repeatPassword: '',
+    }
+  }),
   methods: {
     formSubmit() {
-      this.$refs.registerForm.validate()
+      // Submit form
     },
   },
 }
