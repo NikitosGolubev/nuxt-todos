@@ -14,6 +14,7 @@ import RegisterForm from '@/components/RegisterForm/RegisterForm'
 
 export default {
   components: { RegisterForm },
+  middleware: 'guest',
 }
 </script>
 

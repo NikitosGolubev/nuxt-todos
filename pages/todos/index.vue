@@ -29,6 +29,7 @@ import TodoItem from '@/components/TodoItem/TodoItem'
 
 export default {
   components: { TodoItem },
+  middleware: 'auth',
   data() {
     return {
       mockTodo: {

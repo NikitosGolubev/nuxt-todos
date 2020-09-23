@@ -14,6 +14,7 @@ import LoginForm from '@/components/LoginForm/LoginForm'
 
 export default {
   components: { LoginForm },
+  middleware: 'guest',
 }
 </script>
 
