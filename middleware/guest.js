@@ -1,6 +1,6 @@
-function guestUsersOnly(context) {
-  console.log(context)
-  // if ($fireAuth.currentUser) return redirect('/')
+function guestUsersOnly({ $fireAuth, redirect}) {
+  /** @todo Abstraction! */
+  if ($fireAuth.currentUser) return redirect('/')
 }
 
 export default guestUsersOnly

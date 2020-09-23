@@ -1,6 +1,6 @@
-function authenticatedUsersOnly(context) {
-  console.log(context)
-  // if (!$fireAuth.currentUser) redirect('/login')
+function authenticatedUsersOnly({ $fireAuth, redirect}) {
+  /** @todo Abstraction! */
+  if (!$fireAuth.currentUser) redirect('/login')
 }
 
 export default authenticatedUsersOnly
