@@ -6,6 +6,7 @@
         color="deep-purple darken-1"
         label="E-mail"
         :rules="emailErrorMsg"
+        :error="isError(emailValidator)"
       />
     </div>
 
@@ -16,6 +17,7 @@
         color="deep-purple darken-1"
         label="Password"
         :rules="passwordErrorMsg"
+        :error="isError(passwordValidator)"
       />
     </div>
 
@@ -26,6 +28,7 @@
         color="deep-purple darken-1"
         label="Repeat password"
         :rules="repeatPasswordErrorMsg"
+        :error="isError(repeatPasswordValidator)"
       />
     </div>
 
@@ -63,6 +66,7 @@ export default {
       password: '',
       repeatPassword: '',
     },
+    wasSubmitted: false,
   }),
   validations() {
     return {
@@ -149,7 +153,17 @@ export default {
   },
   methods: {
     formSubmit() {
-      // Submit form
+      this.validate()
+    },
+
+    validate() {
+      this.$v.$touch()
+      this.wasSubmitted = true
+    },
+
+    isError(validator) {
+      if (this.wasSubmitted) return validator.$invalid
+      return false
     },
   },
 }
