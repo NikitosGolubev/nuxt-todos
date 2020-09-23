@@ -1,4 +1,4 @@
-function authenticatedUsersOnly({ $fireAuth, redirect}) {
+function authenticatedUsersOnly({ $fireAuth, redirect }) {
   /** @todo Abstraction! */
   if (!$fireAuth.currentUser) redirect('/login')
 }

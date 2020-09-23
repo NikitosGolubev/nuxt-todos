@@ -1,4 +1,4 @@
-function guestUsersOnly({ $fireAuth, redirect}) {
+function guestUsersOnly({ $fireAuth, redirect }) {
   /** @todo Abstraction! */
   if ($fireAuth.currentUser) return redirect('/')
 }

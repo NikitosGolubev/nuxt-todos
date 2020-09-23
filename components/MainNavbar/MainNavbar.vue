@@ -74,13 +74,13 @@ export default {
   computed: {
     isAuthenticated() {
       /** @todo Abstraction! */
-      return !!this.$fireAuth.currentUser;
+      return !!this.$fireAuth.currentUser
     },
-    
+
     mainPageLink() {
-      if (this.isAuthenticated) return '/todos';
-      return '/';
-    }
+      if (this.isAuthenticated) return '/todos'
+      return '/'
+    },
   },
 }
 </script>
