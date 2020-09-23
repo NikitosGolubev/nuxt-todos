@@ -1,19 +1,32 @@
 <template>
-  <v-form
-    ref="registerForm"
-    class="register-form"
-    @submit.native.prevent="formSubmit"
-  >
+  <v-form class="register-form" @submit.native.prevent="formSubmit">
     <div>
-      <v-text-field v-model="user.email" color="deep-purple darken-1" label="E-mail" />
+      <v-text-field
+        v-model="user.email"
+        color="deep-purple darken-1"
+        label="E-mail"
+        :rules="emailErrorMsg"
+      />
     </div>
 
     <div>
-      <v-text-field v-model="user.password" type="password" color="deep-purple darken-1" label="Password" />
+      <v-text-field
+        v-model="user.password"
+        type="password"
+        color="deep-purple darken-1"
+        label="Password"
+        :rules="passwordErrorMsg"
+      />
     </div>
 
     <div>
-      <v-text-field v-model="user.repeatPassword" type="password" color="deep-purple darken-1" label="Repeat password" />
+      <v-text-field
+        v-model="user.repeatPassword"
+        type="password"
+        color="deep-purple darken-1"
+        label="Repeat password"
+        :rules="repeatPasswordErrorMsg"
+      />
     </div>
 
     <div class="register-form__submit">
@@ -34,6 +47,14 @@
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+  sameAs,
+} from 'vuelidate/lib/validators'
+
 export default {
   name: 'RegisterForm',
   data: () => ({
@@ -41,8 +62,91 @@ export default {
       email: '',
       password: '',
       repeatPassword: '',
-    }
+    },
   }),
+  validations() {
+    return {
+      user: {
+        email: { required, email },
+        password: {
+          required,
+          minLength: minLength(6),
+          maxLength: maxLength(128),
+        },
+        repeatPassword: {
+          sameAsPassword: sameAs('password'),
+        },
+      },
+    }
+  },
+  computed: {
+    emailValidator() {
+      return this.$v.user.email
+    },
+
+    passwordValidator() {
+      return this.$v.user.password
+    },
+
+    repeatPasswordValidator() {
+      return this.$v.user.repeatPassword
+    },
+
+    emailErrorMsg() {
+      let result
+      const validator = this.emailValidator
+
+      switch (true) {
+        case !validator.required:
+          result = 'Field is required'
+          break
+        case !validator.email:
+          result = 'Incorrect email given'
+          break
+        default:
+          result = true
+          break
+      }
+      return [result]
+    },
+
+    passwordErrorMsg() {
+      let result
+      const validator = this.passwordValidator
+
+      switch (true) {
+        /** @todo Make min-, max-length dynamic */
+        case !validator.required:
+          result = 'Field is required'
+          break
+        case !validator.minLength:
+          result = 'Too short, min length is 6'
+          break
+        case !validator.maxLength:
+          result = 'Too long, max length is 128'
+          break
+        default:
+          result = true
+          break
+      }
+      return [result]
+    },
+
+    repeatPasswordErrorMsg() {
+      let result
+      const validator = this.repeatPasswordValidator
+
+      switch (true) {
+        case !validator.sameAsPassword:
+          result = `Doesn't match with provided password`
+          break
+        default:
+          result = true
+          break
+      }
+      return [result]
+    },
+  },
   methods: {
     formSubmit() {
       // Submit form
