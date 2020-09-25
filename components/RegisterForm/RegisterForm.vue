@@ -6,7 +6,7 @@
         color="deep-purple darken-1"
         label="E-mail"
         :rules="emailErrorMsg"
-        :error="isError(emailValidator)"
+        :error="isError(emailValidator, 'email')"
       />
     </div>
 
@@ -67,6 +67,7 @@ export default {
       password: '',
       repeatPassword: '',
     },
+    serverErrors: {},
     wasSubmitted: false,
   }),
   validations() {
@@ -109,6 +110,9 @@ export default {
           break
         case !validator.email:
           result = 'Incorrect email given'
+          break
+        case !!this.serverErrors.email:
+          result = this.serverErrors.email
           break
         default:
           result = true
@@ -164,7 +168,7 @@ export default {
 
     formSubmit() {
       this.validate()
-      this.registerAttempt()
+      if (!this.$v.$invalid) this.registerAttempt()
     },
 
     validate() {
@@ -179,11 +183,17 @@ export default {
           password: this.user.password,
         })
       } catch (error) {
-        console.error(error)
+        /** @todo Improvement candidate */
+        if (error.code === 'auth/email-already-in-use') {
+          const EMAIL_ALREADY_EXISTS_MESSAGE =
+            'You have provied email which is already registered'
+          this.$set(this.serverErrors, 'email', EMAIL_ALREADY_EXISTS_MESSAGE)
+        }
       }
     },
 
-    isError(validator) {
+    isError(validator, fieldName = '') {
+      if (fieldName && this.serverErrors[fieldName]) return true
       if (this.wasSubmitted) return validator.$invalid
       return false
     },
