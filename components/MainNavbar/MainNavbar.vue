@@ -9,7 +9,7 @@
         </div>
 
         <div class="navigation-links">
-          <template v-if="!isAuthenticated">
+          <template v-if="!isLoggedIn">
             <div class="navigation-links__item">
               <nuxt-link
                 exact
@@ -36,7 +36,7 @@
             </div>
           </template>
 
-          <template v-if="isAuthenticated">
+          <template v-if="isLoggedIn">
             <div class="navigation-links__item">
               <nuxt-link
                 exact
@@ -55,11 +55,9 @@
               </nuxt-link>
             </div>
             <div class="navigation-links__item">
-              <nuxt-link to="/logout">
-                <v-btn depressed color="deep-orange">
-                  Logout
-                </v-btn>
-              </nuxt-link>
+              <v-btn depressed color="deep-orange" @click="signOut">
+                Logout
+              </v-btn>
             </div>
           </template>
         </div>
@@ -69,17 +67,33 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'MainNavbar',
   computed: {
-    isAuthenticated() {
-      /** @todo Abstraction! */
-      return !!this.$fireAuth.currentUser
-    },
+    ...mapGetters(['isLoggedIn']),
 
     mainPageLink() {
-      if (this.isAuthenticated) return '/todos'
+      if (this.isLoggedIn) return '/todos'
       return '/'
+    },
+  },
+  watch: {
+    isLoggedIn(newVal) {
+      if (!newVal) this.$router.push('/')
+    },
+  },
+  methods: {
+    ...mapActions('user', ['logout']),
+
+    async signOut() {
+      try {
+        await this.logout()
+        this.$router.push('/')
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

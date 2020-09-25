@@ -1,6 +1,5 @@
-function authenticatedUsersOnly({ $fireAuth, redirect }) {
-  /** @todo Abstraction! */
-  if (!$fireAuth.currentUser) redirect('/login')
+function authenticatedUsersOnly({ store, redirect }) {
+  if (!store.getters.isLoggedIn) return redirect('/login')
 }
 
 export default authenticatedUsersOnly

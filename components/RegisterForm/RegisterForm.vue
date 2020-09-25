@@ -57,6 +57,7 @@ import {
   email,
   sameAs,
 } from 'vuelidate/lib/validators'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'RegisterForm',
@@ -84,6 +85,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isLoggedIn']),
+
     emailValidator() {
       return this.$v.user.email
     },
@@ -151,14 +154,33 @@ export default {
       return [result]
     },
   },
+  watch: {
+    isLoggedIn(newVal) {
+      if (newVal) this.$router.push('/todos')
+    },
+  },
   methods: {
+    ...mapActions('user', ['createUser']),
+
     formSubmit() {
       this.validate()
+      this.registerAttempt()
     },
 
     validate() {
       this.$v.$touch()
       this.wasSubmitted = true
+    },
+
+    async registerAttempt() {
+      try {
+        await this.createUser({
+          email: this.user.email,
+          password: this.user.password,
+        })
+      } catch (error) {
+        console.error(error)
+      }
     },
 
     isError(validator) {

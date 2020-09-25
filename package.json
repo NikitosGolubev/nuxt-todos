@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@nuxtjs/firebase": "^6.1.1",
+    "@nuxtjs/pwa": "^3.0.2",
     "@nuxtjs/vuetify": "^1.11.2",
     "firebase": "^7.19.1",
+    "firebase-admin": "^9.2.0",
     "nuxt": "^2.14.0",
     "vuelidate": "^0.7.5"
   },

@@ -1,6 +1,5 @@
-function guestUsersOnly({ $fireAuth, redirect }) {
-  /** @todo Abstraction! */
-  if ($fireAuth.currentUser) return redirect('/')
+function guestUsersOnly({ store, redirect }) {
+  if (store.getters.isLoggedIn) return redirect('/todos')
 }
 
 export default guestUsersOnly

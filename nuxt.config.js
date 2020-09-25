@@ -57,25 +57,42 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    [
-      '@nuxtjs/firebase',
-      {
-        config: {
-          apiKey: 'AIzaSyDmbujcK2g3hYBQCW19mEa1sWvxatMmQ6E',
-          authDomain: 'nuxt-todo-ef948.firebaseapp.com',
-          databaseURL: 'https://nuxt-todo-ef948.firebaseio.com',
-          projectId: 'nuxt-todo-ef948',
-          storageBucket: 'nuxt-todo-ef948.appspot.com',
-          messagingSenderId: '377799819106',
-          appId: '1:377799819106:web:96816a47910186730d763b',
+  modules: ['@nuxtjs/pwa', '@nuxtjs/firebase'],
+
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDmbujcK2g3hYBQCW19mEa1sWvxatMmQ6E',
+      authDomain: 'nuxt-todo-ef948.firebaseapp.com',
+      databaseURL: 'https://nuxt-todo-ef948.firebaseio.com',
+      projectId: 'nuxt-todo-ef948',
+      storageBucket: 'nuxt-todo-ef948.appspot.com',
+      messagingSenderId: '377799819106',
+      appId: '1:377799819106:web:96816a47910186730d763b',
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'onAuthStateChanged',
         },
-        services: {
-          auth: true,
-        },
+        ssr: true,
       },
-    ],
-  ],
+    },
+  },
+
+  pwa: {
+    meta: false,
+    icon: false,
+    workbox: {
+      importScripts: [
+        // ...
+        '/firebase-auth-sw.js',
+      ],
+      // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+      // only set this true for testing and remember to always clear your browser cache in development
+      dev: true,
+    },
+  },
+
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

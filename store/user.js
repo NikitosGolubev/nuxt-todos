@@ -1,13 +1,15 @@
-import UsersService from '@/services/users-service'
-
 export const state = () => ({})
 
-export const getters = {
-  isUserAuth: () => {
-    return UsersService.isAuth()
-  },
-}
+export const getters = {}
 
 export const mutations = {}
 
-export const actions = {}
+export const actions = {
+  createUser(context, { email, password }) {
+    this.$fireAuth.createUserWithEmailAndPassword(email, password)
+  },
+
+  logout(context) {
+    this.$fireAuth.signOut()
+  },
+}
