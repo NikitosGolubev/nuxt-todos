@@ -33,8 +33,20 @@
     </div>
 
     <div class="register-form__submit">
-      <v-btn type="submit" x-large color="deep-orange" class="white--text">
-        Submit!
+      <v-btn
+        :disabled="isRequestProcessing"
+        type="submit"
+        x-large
+        color="deep-orange"
+        class="white--text"
+      >
+        <span v-show="!isRequestProcessing">Submit!</span>
+        <v-progress-circular
+          v-show="isRequestProcessing"
+          indeterminate
+          color="white"
+          width="3"
+        />
       </v-btn>
     </div>
 
@@ -69,6 +81,7 @@ export default {
     },
     serverErrors: {},
     wasSubmitted: false,
+    isRequestProcessing: false,
   }),
   validations() {
     return {
@@ -178,6 +191,7 @@ export default {
 
     async registerAttempt() {
       try {
+        this.isRequestProcessing = true
         await this.createUser({
           email: this.user.email,
           password: this.user.password,
@@ -189,6 +203,8 @@ export default {
             'You have provied email which is already registered'
           this.$set(this.serverErrors, 'email', EMAIL_ALREADY_EXISTS_MESSAGE)
         }
+      } finally {
+        this.isRequestProcessing = false
       }
     },
 

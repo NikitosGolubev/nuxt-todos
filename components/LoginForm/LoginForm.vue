@@ -34,8 +34,20 @@
     </div>
 
     <div class="login-form__submit">
-      <v-btn x-large type="submit" color="deep-orange" class="white--text">
-        Sign in
+      <v-btn
+        :disabled="isRequestProcessing"
+        x-large
+        type="submit"
+        color="deep-orange"
+        class="white--text"
+      >
+        <span v-show="!isRequestProcessing">Sign in</span>
+        <v-progress-circular
+          v-show="isRequestProcessing"
+          indeterminate
+          color="white"
+          width="3"
+        />
       </v-btn>
     </div>
 
@@ -60,6 +72,7 @@ export default {
     },
     serverErrors: {},
     wasSubmitted: false,
+    isRequestProcessing: false,
   }),
   validations() {
     return {
@@ -133,6 +146,7 @@ export default {
 
     async signInAttempt() {
       try {
+        this.isRequestProcessing = true
         await this.login({
           email: this.user.email,
           password: this.user.password,
@@ -143,6 +157,8 @@ export default {
           const USER_NOT_FOUND_MESSAGE = `Failed to authenticate with provided credentials`
           this.$set(this.serverErrors, 'general', USER_NOT_FOUND_MESSAGE)
         }
+      } finally {
+        this.isRequestProcessing = false
       }
     },
 
