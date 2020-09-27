@@ -9,6 +9,10 @@ export const actions = {
     return this.$fireAuth.createUserWithEmailAndPassword(email, password)
   },
 
+  login(context, { email, password }) {
+    return this.$fireAuth.signInWithEmailAndPassword(email, password)
+  },
+
   logout(context) {
     return this.$fireAuth.signOut()
   },
