@@ -177,6 +177,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setAppError']),
     ...mapActions('user', ['createUser']),
 
     formSubmit() {
@@ -202,6 +203,7 @@ export default {
           const EMAIL_ALREADY_EXISTS_MESSAGE =
             'You have provied email which is already registered'
           this.$set(this.serverErrors, 'email', EMAIL_ALREADY_EXISTS_MESSAGE)
+          this.setAppError(error)
         }
       } finally {
         this.isRequestProcessing = false

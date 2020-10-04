@@ -11,15 +11,17 @@
         <main-footer />
       </div>
     </div>
+    <error-messager />
   </v-app>
 </template>
 
 <script>
 import MainNavbar from '@/components/MainNavbar/MainNavbar'
 import MainFooter from '@/components/MainFooter/MainFooter'
+import ErrorMessager from '@/components/ErrorMessager/ErrorMessager'
 
 export default {
-  components: { MainNavbar, MainFooter },
+  components: { MainNavbar, MainFooter, ErrorMessager },
 }
 </script>
 

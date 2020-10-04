@@ -1,6 +1,7 @@
 function initialState() {
   return {
     authUser: null,
+    appError: null,
   }
 }
 
@@ -31,6 +32,10 @@ export const mutations = {
       uid: authUser.uid,
       email: authUser.email,
     }
+  },
+
+  SET_APP_ERROR: (state, error) => {
+    state.appError = error
   },
 }
 
@@ -85,5 +90,13 @@ export const actions = {
     alert(
       'Success. Nuxt-fire Objects can be accessed in store actions via this.$fire___'
     )
+  },
+
+  removeAppError({ commit }) {
+    commit('SET_APP_ERROR', null)
+  },
+
+  setAppError({ commit }, error) {
+    commit('SET_APP_ERROR', error)
   },
 }

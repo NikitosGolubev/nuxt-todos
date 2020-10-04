@@ -132,6 +132,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setAppError']),
     ...mapActions('user', ['login']),
 
     formSubmit() {
@@ -156,6 +157,8 @@ export default {
         if (error.code === 'auth/user-not-found') {
           const USER_NOT_FOUND_MESSAGE = `Failed to authenticate with provided credentials`
           this.$set(this.serverErrors, 'general', USER_NOT_FOUND_MESSAGE)
+        } else {
+          this.setAppError(error)
         }
       } finally {
         this.isRequestProcessing = false

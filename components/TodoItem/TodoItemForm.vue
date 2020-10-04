@@ -156,6 +156,7 @@ export default {
     this.initTodo()
   },
   methods: {
+    ...mapActions(['setAppError']),
     ...mapActions('user', ['createTodo', 'updateTodo']),
 
     initTodo() {
@@ -183,7 +184,7 @@ export default {
         await this.createTodo(this.todo)
         this.resetForm()
       } catch (e) {
-        console.log(e)
+        this.setAppError(e)
       }
     },
 
@@ -193,7 +194,7 @@ export default {
         this.resetFormProperties()
         this.setLastUpdatedTodo()
       } catch (e) {
-        console.log(e)
+        this.setAppError(e)
       }
     },
 

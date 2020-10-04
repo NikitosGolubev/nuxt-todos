@@ -85,6 +85,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setAppError']),
     ...mapActions('user', ['logout']),
 
     async signOut() {
@@ -92,7 +93,7 @@ export default {
         await this.logout()
         this.$router.push('/')
       } catch (error) {
-        console.log(error)
+        this.setAppError(error)
       }
     },
   },

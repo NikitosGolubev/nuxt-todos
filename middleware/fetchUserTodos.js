@@ -4,7 +4,7 @@ async function fetchUserTodos({ store }) {
       await store.dispatch('user/loadUserTodos')
       store.commit('user/SWITCH_TODOS_REQUESTED', true, { root: true })
     } catch (e) {
-      console.log(e)
+      store.dispatch('setAppError', e)
     }
   }
 }

@@ -56,25 +56,26 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setAppError']),
     ...mapActions('user', ['switchTodoCompleted', 'deleteTodo']),
 
     switchCompleted() {
       this.isCompleted = !this.isCompleted
     },
 
-    asyncSwitchCompleted(isCompleted) {
+    async asyncSwitchCompleted(isCompleted) {
       try {
-        this.switchTodoCompleted({ id: this.todo.id, isCompleted })
+        await this.switchTodoCompleted({ id: this.todo.id, isCompleted })
       } catch (e) {
-        console.log(e)
+        this.setAppError(e)
       }
     },
 
-    removeTodo() {
+    async removeTodo() {
       try {
-        this.deleteTodo(this.todo)
+        await this.deleteTodo(this.todo)
       } catch (e) {
-        console.log(e)
+        this.setAppError(e)
       }
     },
   },

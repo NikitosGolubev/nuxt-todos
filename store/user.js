@@ -62,6 +62,8 @@ export const actions = {
       querySnapshot.forEach((doc) => {
         commit('ADD_TODO_ITEM', { id: doc.id, data: doc.data() })
       })
+
+      return querySnapshot
     }
   },
 
@@ -71,19 +73,31 @@ export const actions = {
       id: response.id,
       data: todo,
     })
+    return response
   },
 
   async updateTodo({ commit, state }, todo) {
-    await this.$fireStore.collection('todos').doc(todo.id).set(todo.data)
+    const response = await this.$fireStore
+      .collection('todos')
+      .doc(todo.id)
+      .set(todo.data)
+
     if (state.haveTodosBeenRequested) {
       const todoClone = cloneDeep(todo)
       commit('UPDATE_TODO_ITEM', todoClone)
     }
+
+    return response
   },
 
   async deleteTodo({ commit }, todo) {
-    await this.$fireStore.collection('todos').doc(todo.id).delete()
+    const response = await this.$fireStore
+      .collection('todos')
+      .doc(todo.id)
+      .delete()
+
     commit('DELETE_TODO_ITEM', todo)
+    return response
   },
 
   async switchTodoCompleted({ commit, getters }, { id, isCompleted }) {
@@ -91,8 +105,14 @@ export const actions = {
     if (todo) {
       const todoClone = cloneDeep(todo)
       todoClone.data.completed = isCompleted
-      await this.$fireStore.collection('todos').doc(id).set(todoClone.data)
+
+      const response = await this.$fireStore
+        .collection('todos')
+        .doc(id)
+        .set(todoClone.data)
+
       commit('UPDATE_TODO_ITEM', todoClone)
+      return response
     }
   },
 
