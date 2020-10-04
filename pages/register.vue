@@ -15,6 +15,9 @@ import RegisterForm from '@/components/RegisterForm/RegisterForm'
 export default {
   components: { RegisterForm },
   middleware: 'guest',
+  head: {
+    title: 'Sign up page - Nuxt-todo',
+  },
 }
 </script>
 

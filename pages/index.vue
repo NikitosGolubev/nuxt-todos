@@ -45,6 +45,16 @@
 <script>
 export default {
   middleware: 'guest',
+  head: {
+    title: 'Todo-app - organize your life!',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Well, this is description of todo-app home-page',
+      },
+    ],
+  },
 }
 </script>
 

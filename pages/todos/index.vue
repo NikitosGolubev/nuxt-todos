@@ -55,6 +55,9 @@ export default {
   computed: {
     ...mapGetters('user', ['activeTodos', 'completedTodos']),
   },
+  head: {
+    title: 'My todos - personal page',
+  },
 }
 </script>
 

@@ -15,6 +15,9 @@ import LoginForm from '@/components/LoginForm/LoginForm'
 export default {
   components: { LoginForm },
   middleware: 'guest',
+  head: {
+    title: 'Sign in page - Nuxt-todo',
+  },
 }
 </script>
 

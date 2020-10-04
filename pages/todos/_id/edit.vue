@@ -3,7 +3,7 @@
     <div class="update-todo-form">
       <div class="update-todo-form__title">
         <h1 class="text-h3 font-weight-medium">
-          Edit TODO: {{ todo.data.content }}
+          Edit TODO
         </h1>
       </div>
 
@@ -40,6 +40,9 @@ export default {
     syncTodo(todo) {
       this.todo.data = todo
     },
+  },
+  head: {
+    title: 'Edit your todo ;)',
   },
 }
 </script>

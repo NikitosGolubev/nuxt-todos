@@ -16,6 +16,9 @@ import TodoItemForm from '@/components/TodoItem/TodoItemForm'
 export default {
   components: { TodoItemForm },
   middleware: 'auth',
+  head: {
+    title: 'Make new todo, yai',
+  },
 }
 </script>
 
