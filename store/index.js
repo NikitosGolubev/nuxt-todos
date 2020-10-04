@@ -14,6 +14,10 @@ export const getters = {
       return false
     }
   },
+
+  authUserId: (state) => {
+    if (state.authUser) return state.authUser.uid
+  },
 }
 
 export const mutations = {

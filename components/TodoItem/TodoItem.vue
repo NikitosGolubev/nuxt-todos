@@ -9,20 +9,19 @@
       :class="{ 'todo-item__text_completed': isCompleted }"
       @click="switchCompleted"
     >
-      Tempor sit dolore ullamco tempor dolore consectetur incididunt nisi
-      eiusmod elit consectetur dolor excepteur.
+      {{ todoContent }}
     </div>
 
     <div class="todo-controls todo-item__controls">
       <div class="todo-controls__item">
-        <nuxt-link to="/todos/1/edit">
+        <nuxt-link :to="`/todos/${todo.id}/edit`">
           <v-btn fab dark x-small color="deep-purple darken-1">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </nuxt-link>
       </div>
       <div class="todo-controls__item">
-        <v-btn fab dark x-small color="red">
+        <v-btn fab dark x-small color="red" @click="removeTodo">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </div>
@@ -31,6 +30,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'TodoItem',
   props: {
@@ -41,12 +42,40 @@ export default {
   },
   data() {
     return {
-      isCompleted: this.todo.completed,
+      isCompleted: this.todo.data.completed,
     }
   },
+  computed: {
+    todoContent() {
+      return this.todo.data.content
+    },
+  },
+  watch: {
+    isCompleted(value) {
+      this.asyncSwitchCompleted(value)
+    },
+  },
   methods: {
+    ...mapActions('user', ['switchTodoCompleted', 'deleteTodo']),
+
     switchCompleted() {
       this.isCompleted = !this.isCompleted
+    },
+
+    asyncSwitchCompleted(isCompleted) {
+      try {
+        this.switchTodoCompleted({ id: this.todo.id, isCompleted })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    removeTodo() {
+      try {
+        this.deleteTodo(this.todo)
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }

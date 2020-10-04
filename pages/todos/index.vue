@@ -2,40 +2,58 @@
   <div class="todos-page">
     <div class="todos-container todos-page__todo-block">
       <div class="todos-container__title">
-        <h1 class="text-h3 font-weight-medium">Активные TODO:</h1>
+        <h1 class="text-h3 font-weight-medium">Active TODOs:</h1>
       </div>
 
       <div>
-        <todo-item class="todos-container__todo" :todo="mockTodo" />
-        <todo-item class="todos-container__todo" :todo="mockTodo" />
+        <todo-item
+          v-for="todo in activeTodos"
+          :key="todo.id"
+          class="todos-container__todo"
+          :todo="todo"
+        />
+        <div v-show="!activeTodos.length">
+          It's empty here, perfect time for new challenges!
+        </div>
       </div>
     </div>
 
     <div class="todos-container todos-page__todo-block">
       <div class="todos-container__title">
-        <h1 class="text-h3 font-weight-medium">Выполненные TODO:</h1>
+        <h1 class="text-h3 font-weight-medium">Completed TODOs:</h1>
       </div>
 
       <div>
-        <todo-item class="todos-container__todo" :todo="mockTodo" />
-        <todo-item class="todos-container__todo" :todo="mockTodo" />
+        <todo-item
+          v-for="todo in completedTodos"
+          :key="todo.id"
+          class="todos-container__todo"
+          :todo="todo"
+        />
+        <div v-show="!completedTodos.length">
+          No todo's yet done! What about stop being lazy asshole?
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import TodoItem from '@/components/TodoItem/TodoItem'
 
 export default {
   components: { TodoItem },
-  middleware: 'auth',
+  middleware: ['auth', 'fetchUserTodos'],
   data() {
     return {
       mockTodo: {
         completed: false,
       },
     }
+  },
+  computed: {
+    ...mapGetters('user', ['activeTodos', 'completedTodos']),
   },
 }
 </script>
